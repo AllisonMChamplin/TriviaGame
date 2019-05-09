@@ -26,3 +26,17 @@ p {
     font-family: 'Forum', cursive;
     font-size: 1.4em;
 }
+
+.intro {
+    text-align: center;
+}
+
+button.answer-button {
+    width: 100%;
+    text-align: left;
+    padding: 6px 15px;
+}
+
+.col-sm {
+    text-align: center;
+}
