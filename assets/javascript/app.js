@@ -68,6 +68,7 @@ $(document).ready(function () {
             displayQuestion();
             displayAnswers();
             questionIdCounter = questionIdCounter + 1;
+            startTiming();
             console.log("loaded question: ", currentQuestion);
         }
     }
@@ -75,12 +76,17 @@ $(document).ready(function () {
 
     // Handles clicks on the multiple choice buttons
     $(document).on('click', '.answer-button', function () {
-        console.log("hi" + this.value);
+
+        // Stops timer
+        stop();
+
+        console.log("hiasdfasdfasdfasdf" + this.value);
         console.log(currentQuestion.solutionId);
         console.log(currentQuestion.questionId)
 
         // Disables all 4 answer buttons after one is clicked
         $('.answer-button').attr("disabled", true);
+
 
         // If user guesses the correct answer
         if (this.value == currentQuestion.solutionId) {
@@ -104,9 +110,81 @@ $(document).ready(function () {
     });
 
 
+    // Timer Stuff // // // // // // //
+    //  Variable that will hold our setInterval that runs the timer 
+    var intervalId;
+    // prevents the clock from being sped up unnecessarily
+    var clockRunning = false;
+    var time = 0;
+
+    function reset() {
+        time = 0;
+        lap = 1;
+        // Change the "display" div to "5"
+        $("#display").text("5");
+        // Empty the "laps" div.
+        $("#laps").text("");
+        stop();
+    }
+
+    function startTiming() {
+        // Use setInterval to start the count here and set the clock to running.
+        if (!clockRunning) {
+            intervalId = setInterval(count, 1000);
+            clockRunning = true;
+        }
+    }
+
+    function stop() {
+        console.log("STOP");
+        // Use clearInterval to stop the count
+        clearInterval(intervalId);
+        // Set the clock to not be running.
+        clockRunning = false;
+        console.log("time: ", time);
+        time = 0;
+        $("#display").text(time);
+    }
+
+    function recordLap() {
+        // Get the current time, and save the result in a variable.
+        var timeResponse = time;
+        // Add the current lap and time to the "laps" div.
+        $("#laps").append("<p>Lap " + lap + " : " + timeResponse + "</p>");
+        // Increment lap by 1. Remember, we can't use "this" here.
+        lap++;
+    }
+
+    function count() {
+        // increment time by 1, remember we cant use "this" here.
+        time++;
+        // Use the variable we just created to show the converted time in the "display" div.
+        $("#display").text(time);
+    }
+
+    // Reset button
+    $("#reset").on("click", reset);
+    function reset() {
+        stop();
+        console.log("function reset");
+        correctAnswers = [];
+        incorrectAnswers = [];
+        unAnswered = [];
+        questionIdCounter = 0;
+        gameOver = false;
+        currentQuestion = myQuestions[0];
+        console.log("currentQuestion: ", currentQuestion);
+        $('#question').empty();
+        $('#answers').empty();
+    }
+
+
+    // Main Code // // // // //
+
     // Start button
     $("#start").on("click", start);
     function start() {
+        stop();
         console.log("function start");
         correctAnswers = [];
         incorrectAnswers = [];
