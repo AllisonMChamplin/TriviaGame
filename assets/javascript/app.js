@@ -38,15 +38,19 @@ $(document).ready(function () {
     function loadQuestion() {
         console.log("myQuestions: ", myQuestions);
         console.log("Hi loadQuestion", myQuestions);
-        $('#question').empty();
-        $('#answers').empty();
+
+        // Set the current question
         currentQuestion = myQuestions[questionIdCounter];
         console.log("currentQuestion: ", currentQuestion);
+
         if (typeof currentQuestion === "undefined") {
             gameOver == true;
             processGameOver();
             return false;
         } else {
+            // Clear the display divs
+            $('#question').empty();
+            $('#answers').empty();
             // Replace the question div with a new question
             function displayQuestion() {
                 if (typeof currentQuestion === "undefined") {
@@ -77,17 +81,20 @@ $(document).ready(function () {
 
         // Disables all 4 answer buttons after one is clicked
         $('.answer-button').attr("disabled", true);
+
+        // If user guesses the correct answer
         if (this.value == currentQuestion.solutionId) {
             console.log("correct answer");
             correctAnswers.push(currentQuestion.questionId);
             console.log("correctAnswer array: ", correctAnswers);
             loadQuestion();
-
+            // Incorrect answer
         } else if (this.value !== currentQuestion.solutionId) {
             console.log("incorrect answer");
             incorrectAnswers.push(currentQuestion.questionId);
             console.log("incorrectAnswer array: ", incorrectAnswers);
             loadQuestion();
+            // Timer ran out
         } else {
             console.log("timeout?");
             unAnswered.push(currentQuestion.questionId);
@@ -118,8 +125,8 @@ $(document).ready(function () {
         console.log("game over");
         $('#question').empty();
         $('#answers').empty();
-        $('#question').append("hi");
-    }
+        $('#question').append("<div class=gameover>" + "Game Over! Here's how you did:" + "</div>" + "<div class=correct>" + correctAnswers.length + " correct.</div>" + "<div class=incorrect>" + incorrectAnswers.length + " incorrect.</div>" + "<div class=unanswered>" + unAnswered.length + " unanswered.</div>");
+    };
 
 
 });
