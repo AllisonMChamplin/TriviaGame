@@ -79,14 +79,15 @@ $(document).ready(function () {
 
         // Stops timer
         stop();
+        recordLap();
+        console.log("timer");
 
         console.log("hiasdfasdfasdfasdf" + this.value);
         console.log(currentQuestion.solutionId);
-        console.log(currentQuestion.questionId)
+        console.log(currentQuestion.questionId);
 
         // Disables all 4 answer buttons after one is clicked
         $('.answer-button').attr("disabled", true);
-
 
         // If user guesses the correct answer
         if (this.value == currentQuestion.solutionId) {
@@ -103,9 +104,6 @@ $(document).ready(function () {
             // Timer ran out
         } else {
             console.log("timeout?");
-            unAnswered.push(currentQuestion.questionId);
-            console.log("unAnswered array: ", unAnswered);
-            loadQuestion();
         }
     });
 
@@ -115,10 +113,10 @@ $(document).ready(function () {
     var intervalId;
     // prevents the clock from being sped up unnecessarily
     var clockRunning = false;
-    var time = 0;
+    var time = 5;
 
     function reset() {
-        time = 0;
+        time = 5;
         lap = 1;
         // Change the "display" div to "5"
         $("#display").text("5");
@@ -128,6 +126,8 @@ $(document).ready(function () {
     }
 
     function startTiming() {
+        time = 5;
+        $("#display").text(time);
         // Use setInterval to start the count here and set the clock to running.
         if (!clockRunning) {
             intervalId = setInterval(count, 1000);
@@ -142,7 +142,6 @@ $(document).ready(function () {
         // Set the clock to not be running.
         clockRunning = false;
         console.log("time: ", time);
-        time = 0;
         $("#display").text(time);
     }
 
@@ -150,15 +149,26 @@ $(document).ready(function () {
         // Get the current time, and save the result in a variable.
         var timeResponse = time;
         // Add the current lap and time to the "laps" div.
-        $("#laps").append("<p>Lap " + lap + " : " + timeResponse + "</p>");
+        // $("#laps").append("<p>Lap " + lap + " : " + timeResponse + "</p>");
         // Increment lap by 1. Remember, we can't use "this" here.
-        lap++;
+        // lap++;
+        return time;
+    }
+
+    function processUnanswered() {
+        unAnswered.push(currentQuestion.questionId);
+        console.log("unAnswered array: ", unAnswered);
+        loadQuestion();
     }
 
     function count() {
-        // increment time by 1, remember we cant use "this" here.
-        time++;
-        // Use the variable we just created to show the converted time in the "display" div.
+        if (time == 0) {
+            stop();
+            processUnanswered();
+        } else {
+            // decrement time by 1
+            time--;
+        }
         $("#display").text(time);
     }
 
@@ -174,6 +184,8 @@ $(document).ready(function () {
         gameOver = false;
         currentQuestion = myQuestions[0];
         console.log("currentQuestion: ", currentQuestion);
+        time = 5;
+        $("#display").text(time);
         $('#question').empty();
         $('#answers').empty();
     }
@@ -193,6 +205,8 @@ $(document).ready(function () {
         gameOver = false;
         currentQuestion = myQuestions[0];
         console.log("currentQuestion: ", currentQuestion);
+        time = 5;
+        $("#display").text(time);
         $('#question').empty();
         $('#answers').empty();
         loadQuestion();
