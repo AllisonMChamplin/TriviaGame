@@ -38,6 +38,9 @@ $(document).ready(function () {
     function loadQuestion() {
         console.log("myQuestions: ", myQuestions);
         console.log("Hi loadQuestion", myQuestions);
+        if (questionIdCounter == 0) {
+            $('#timer').empty();
+        }
 
         // Set the current question
         currentQuestion = myQuestions[questionIdCounter];
@@ -94,13 +97,13 @@ $(document).ready(function () {
             console.log("correct answer");
             correctAnswers.push(currentQuestion.questionId);
             console.log("correctAnswer array: ", correctAnswers);
-            loadQuestion();
+            nextQuestion();
             // Incorrect answer
         } else if (this.value !== currentQuestion.solutionId) {
             console.log("incorrect answer");
             incorrectAnswers.push(currentQuestion.questionId);
             console.log("incorrectAnswer array: ", incorrectAnswers);
-            loadQuestion();
+            nextQuestion();
             // Timer ran out
         } else {
             console.log("timeout?");
@@ -185,9 +188,10 @@ $(document).ready(function () {
         currentQuestion = myQuestions[0];
         console.log("currentQuestion: ", currentQuestion);
         time = 5;
-        $("#display").text(time);
+        $("#display").empty();
         $('#question').empty();
-        $('#answers').empty();
+        $('#answers').empty();        
+        $("#next-button").empty();
     }
 
 
@@ -209,14 +213,33 @@ $(document).ready(function () {
         $("#display").text(time);
         $('#question').empty();
         $('#answers').empty();
+        $("#next-button").empty();
         loadQuestion();
     }
+
+    
+    // Next Question
+    function nextQuestion() {
+        console.log("nextQuestion function");                
+        $("#next-button").empty();
+        var nextButton = $("<button>");
+        nextButton.addClass("next");
+        nextButton.text("Next Question");
+        $("#next-button").append(nextButton);
+        console.log("nextQuestion function2");
+    }
+    
+    
+    // Adding click event listeners to all elements with a class of "movie"
+    $(document).on("click", ".next", loadQuestion);
+
 
     // Game Over stuff
     function processGameOver() {
         console.log("game over");
         $('#question').empty();
         $('#answers').empty();
+        $("#next-button").empty();
         $('#question').append("<div class=gameover>" + "Game Over! Here's how you did:" + "</div>" + "<div class=correct>" + correctAnswers.length + " correct.</div>" + "<div class=incorrect>" + incorrectAnswers.length + " incorrect.</div>" + "<div class=unanswered>" + unAnswered.length + " unanswered.</div>");
     };
 

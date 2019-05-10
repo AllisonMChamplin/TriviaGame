@@ -40,3 +40,7 @@ button.answer-button {
 .col-sm {
     text-align: center;
 }
+
+#display {
+    height: 24px;
+}
