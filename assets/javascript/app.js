@@ -38,6 +38,8 @@ $(document).ready(function () {
     function loadQuestion() {
         console.log("myQuestions: ", myQuestions);
         console.log("Hi loadQuestion", myQuestions);
+
+        $("#next-button").empty();
         if (questionIdCounter == 0) {
             $('#timer').empty();
         }
@@ -65,7 +67,7 @@ $(document).ready(function () {
             // Loops through the array of answers and appends the answer div with each answer array item
             function displayAnswers() {
                 for (i = 0; i < currentQuestion.answers.length; i++) {
-                    $('#answers').append("<button class='answer-button' value=" + i + ">" + currentQuestion.answers[i] + "</button>" + "<br>");
+                    $('#answers').append("<button class='answer-button shadow-sm rounded' value=" + i + ">" + currentQuestion.answers[i] + "</button>" + "<br>");
                 };
             };
             displayQuestion();
@@ -83,27 +85,30 @@ $(document).ready(function () {
         // Stops timer
         stop();
         recordLap();
-        console.log("timer");
+        nextQuestion();
 
-        console.log("hiasdfasdfasdfasdf" + this.value);
+        // Adds a class to the button that was clicked
+        $(this).addClass('selectedAnswer');
+
+        console.log("this.value: " + this.value);
         console.log(currentQuestion.solutionId);
         console.log(currentQuestion.questionId);
 
         // Disables all 4 answer buttons after one is clicked
         $('.answer-button').attr("disabled", true);
 
+
         // If user guesses the correct answer
         if (this.value == currentQuestion.solutionId) {
             console.log("correct answer");
             correctAnswers.push(currentQuestion.questionId);
             console.log("correctAnswer array: ", correctAnswers);
-            nextQuestion();
             // Incorrect answer
         } else if (this.value !== currentQuestion.solutionId) {
             console.log("incorrect answer");
             incorrectAnswers.push(currentQuestion.questionId);
             console.log("incorrectAnswer array: ", incorrectAnswers);
-            nextQuestion();
+
             // Timer ran out
         } else {
             console.log("timeout?");
@@ -116,20 +121,20 @@ $(document).ready(function () {
     var intervalId;
     // prevents the clock from being sped up unnecessarily
     var clockRunning = false;
-    var time = 5;
+    var time = 6;
 
     function reset() {
-        time = 5;
+        time = 6;
         lap = 1;
-        // Change the "display" div to "5"
-        $("#display").text("5");
+        // Change the "display" div to "6"
+        $("#display").text("6");
         // Empty the "laps" div.
         $("#laps").text("");
         stop();
     }
 
     function startTiming() {
-        time = 5;
+        time = 6;
         $("#display").text(time);
         // Use setInterval to start the count here and set the clock to running.
         if (!clockRunning) {
@@ -161,7 +166,8 @@ $(document).ready(function () {
     function processUnanswered() {
         unAnswered.push(currentQuestion.questionId);
         console.log("unAnswered array: ", unAnswered);
-        loadQuestion();
+        $('.answer-button').attr("disabled", true);
+        nextQuestion();
     }
 
     function count() {
@@ -173,6 +179,7 @@ $(document).ready(function () {
             time--;
         }
         $("#display").text(time);
+        progressBar(time);
     }
 
     // Reset button
@@ -187,10 +194,10 @@ $(document).ready(function () {
         gameOver = false;
         currentQuestion = myQuestions[0];
         console.log("currentQuestion: ", currentQuestion);
-        time = 5;
+        time = 6;
         $("#display").empty();
         $('#question').empty();
-        $('#answers').empty();        
+        $('#answers').empty();
         $("#next-button").empty();
     }
 
@@ -209,7 +216,7 @@ $(document).ready(function () {
         gameOver = false;
         currentQuestion = myQuestions[0];
         console.log("currentQuestion: ", currentQuestion);
-        time = 5;
+        time = 6;
         $("#display").text(time);
         $('#question').empty();
         $('#answers').empty();
@@ -217,19 +224,23 @@ $(document).ready(function () {
         loadQuestion();
     }
 
-    
+
     // Next Question
     function nextQuestion() {
-        console.log("nextQuestion function");                
+        console.log("nextQuestion function");
         $("#next-button").empty();
         var nextButton = $("<button>");
         nextButton.addClass("next");
-        nextButton.text("Next Question");
+        if (questionIdCounter < 4) {
+            nextButton.text("Next Question");
+        } else {
+            nextButton.text("Finish Quiz");
+        }
         $("#next-button").append(nextButton);
         console.log("nextQuestion function2");
     }
-    
-    
+
+
     // Adding click event listeners to all elements with a class of "movie"
     $(document).on("click", ".next", loadQuestion);
 
@@ -242,6 +253,22 @@ $(document).ready(function () {
         $("#next-button").empty();
         $('#question').append("<div class=gameover>" + "Game Over! Here's how you did:" + "</div>" + "<div class=correct>" + correctAnswers.length + " correct.</div>" + "<div class=incorrect>" + incorrectAnswers.length + " incorrect.</div>" + "<div class=unanswered>" + unAnswered.length + " unanswered.</div>");
     };
+
+
+    function progressBar(t) {
+        console.log("progressBar: ", t);
+        var percent = (t * 100) / 5;
+        $(".progress").empty();
+        var progressDiv = $("<div>");
+        progressDiv.addClass("progress-bar");
+        progressDiv.attr("role", "progressbar");
+        progressDiv.attr("style", "width: " + percent + "%");
+        progressDiv.attr("aria-valuenow='t'");
+        progressDiv.attr("aria-valuemin='0'");
+        progressDiv.attr("aria-valuemax='100'");
+        progressDiv.text(t);
+        $('.progress').append(progressDiv);
+    }
 
 
 });

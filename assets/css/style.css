@@ -1,11 +1,17 @@
+body {
+    background: #fff url("../images/DD-Grunge-Background-77780-Preview.jpg") ;
+    color:#fff; */
+}
+
 .page-header {
+    height: 90px;
     background:#333;
 }
 
 div.col-sm {
-    border: 1px solid #ccc;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    /* border: 1px solid #ccc; */
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 h1, h2, h3, h4, h5 {
@@ -32,9 +38,14 @@ p {
 }
 
 button.answer-button {
-    width: 100%;
+    width: 60%;
     text-align: left;
-    padding: 6px 15px;
+    padding: 10px 18px;
+    margin: 0 0 15px 0;
+}
+
+button.answer-button:hover {
+    
 }
 
 .col-sm {
@@ -44,3 +55,40 @@ button.answer-button {
 #display {
     height: 24px;
 }
+
+.selectedAnswer {
+    background-color:#0c5460;
+    border: 1px solid #fff;
+    color:#fff;
+}
+
+.progress {
+    width: 60%;
+    margin: 0 auto;
+}
+
+button {
+    font-family: 'Forum', cursive;
+    font-size: 1.2em;
+    padding: 4px 30px;
+}
+
+.intro p {
+    width: 60%;
+    margin: 0 auto;
+    color: #22170c;
+}
+
+
+
+#grad {
+    background-image: linear-gradient(to bottom right, red, yellow);
+  }
+
+  .progress-bar {
+      background: #b7a795;
+  }
+
+  #question {
+      color:#333;
+  }
