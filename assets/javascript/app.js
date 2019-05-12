@@ -4,6 +4,8 @@
 
 $(document).ready(function () {
 
+    $(".progress").hide();
+
     // Global Variables //
     var correctAnswers = [];
     var incorrectAnswers = [];
@@ -22,10 +24,7 @@ $(document).ready(function () {
         this.solutionId = solutionId;
         this.questionId = questionIdCounter;
         myQuestions.push(this);
-        console.log("questionIdCounter", questionIdCounter);
         questionIdCounter = questionIdCounter + 1;
-        console.log("questionIdCounter", questionIdCounter);
-        console.log("myQuestions: ", myQuestions);
     }
 
     // Question Objects //
@@ -36,17 +35,17 @@ $(document).ready(function () {
 
     // Loads the current question
     function loadQuestion() {
-        console.log("myQuestions: ", myQuestions);
         console.log("Hi loadQuestion", myQuestions);
 
         $("#next-button").empty();
+        $("#start").hide();
+        
         if (questionIdCounter == 0) {
             $('#timer').empty();
         }
 
         // Set the current question
-        currentQuestion = myQuestions[questionIdCounter];
-        console.log("currentQuestion: ", currentQuestion);
+        currentQuestion = myQuestions[questionIdCounter];        
 
         if (typeof currentQuestion === "undefined") {
             gameOver == true;
@@ -54,14 +53,22 @@ $(document).ready(function () {
             return false;
         } else {
             // Clear the display divs
+            $(".changer").empty();
             $('#question').empty();
             $('#answers').empty();
-            // Replace the question div with a new question
+
+            // Replace changer with question number
+            function displayQuestionNumber() {
+                var x = (questionIdCounter + 1);
+                var n = myQuestions.length;
+                $('.changer').prepend("<p>Question " + x + " of " + n + "</p>");
+            }
+            // Replace the changer div with a new question
             function displayQuestion() {
                 if (typeof currentQuestion === "undefined") {
                     processGameOver();
                 } else {
-                    $('#question').html("<p>" + currentQuestion.query + "</p>");
+                    $('.changer').append(currentQuestion.query);
                 }
             };
             // Loops through the array of answers and appends the answer div with each answer array item
@@ -70,11 +77,12 @@ $(document).ready(function () {
                     $('#answers').append("<button class='answer-button shadow-sm rounded' value=" + i + ">" + currentQuestion.answers[i] + "</button>" + "<br>");
                 };
             };
+
+            displayQuestionNumber();
             displayQuestion();
             displayAnswers();
             questionIdCounter = questionIdCounter + 1;
             startTiming();
-            console.log("loaded question: ", currentQuestion);
         }
     }
 
@@ -89,10 +97,6 @@ $(document).ready(function () {
 
         // Adds a class to the button that was clicked
         $(this).addClass('selectedAnswer');
-
-        console.log("this.value: " + this.value);
-        console.log(currentQuestion.solutionId);
-        console.log(currentQuestion.questionId);
 
         // Disables all 4 answer buttons after one is clicked
         $('.answer-button').attr("disabled", true);
@@ -121,10 +125,10 @@ $(document).ready(function () {
     var intervalId;
     // prevents the clock from being sped up unnecessarily
     var clockRunning = false;
-    var time = 6;
+    var time = 10;
 
     function reset() {
-        time = 6;
+        time = 10;
         lap = 1;
         // Change the "display" div to "6"
         $("#display").text("6");
@@ -134,12 +138,13 @@ $(document).ready(function () {
     }
 
     function startTiming() {
-        time = 6;
+        time = 10;
         $("#display").text(time);
         // Use setInterval to start the count here and set the clock to running.
         if (!clockRunning) {
             intervalId = setInterval(count, 1000);
-            clockRunning = true;
+            clockRunning = true;            
+        $(".progress").show();
         }
     }
 
@@ -149,7 +154,6 @@ $(document).ready(function () {
         clearInterval(intervalId);
         // Set the clock to not be running.
         clockRunning = false;
-        console.log("time: ", time);
         $("#display").text(time);
     }
 
@@ -185,8 +189,8 @@ $(document).ready(function () {
     // Reset button
     $("#reset").on("click", reset);
     function reset() {
-        stop();
-        console.log("function reset");
+        stop();        
+        $(".progress").hide();
         correctAnswers = [];
         incorrectAnswers = [];
         unAnswered = [];
@@ -194,11 +198,12 @@ $(document).ready(function () {
         gameOver = false;
         currentQuestion = myQuestions[0];
         console.log("currentQuestion: ", currentQuestion);
-        time = 6;
+        time = 10;
         $("#display").empty();
         $('#question').empty();
         $('#answers').empty();
         $("#next-button").empty();
+        $(".progress").empty();
     }
 
 
@@ -207,41 +212,40 @@ $(document).ready(function () {
     // Start button
     $("#start").on("click", start);
     function start() {
-        stop();
-        console.log("function start");
+        stop();        
+        $(".progress").hide();
+        $(".changer").empty();
         correctAnswers = [];
         incorrectAnswers = [];
         unAnswered = [];
         questionIdCounter = 0;
         gameOver = false;
         currentQuestion = myQuestions[0];
-        console.log("currentQuestion: ", currentQuestion);
-        time = 6;
+        time = 10;
         $("#display").text(time);
         $('#question').empty();
         $('#answers').empty();
         $("#next-button").empty();
+        $(".progress").empty();
         loadQuestion();
     }
 
 
     // Next Question
     function nextQuestion() {
-        console.log("nextQuestion function");
         $("#next-button").empty();
         var nextButton = $("<button>");
         nextButton.addClass("next");
         if (questionIdCounter < 4) {
             nextButton.text("Next Question");
         } else {
-            nextButton.text("Finish Quiz");
+            nextButton.text("Score Quiz");
         }
         $("#next-button").append(nextButton);
-        console.log("nextQuestion function2");
     }
 
 
-    // Adding click event listeners to all elements with a class of "movie"
+    // Adding click event listeners to all elements with a class of ".next"
     $(document).on("click", ".next", loadQuestion);
 
 
@@ -252,12 +256,14 @@ $(document).ready(function () {
         $('#answers').empty();
         $("#next-button").empty();
         $('#question').append("<div class=gameover>" + "Game Over! Here's how you did:" + "</div>" + "<div class=correct>" + correctAnswers.length + " correct.</div>" + "<div class=incorrect>" + incorrectAnswers.length + " incorrect.</div>" + "<div class=unanswered>" + unAnswered.length + " unanswered.</div>");
+        $('.progress').hide();
+        $("#start").text("Start a new game");
+        $("#start").show();
     };
 
 
     function progressBar(t) {
-        console.log("progressBar: ", t);
-        var percent = (t * 100) / 5;
+        var percent = (t * 100) / 10;
         $(".progress").empty();
         var progressDiv = $("<div>");
         progressDiv.addClass("progress-bar");
