@@ -43,17 +43,17 @@ $(document).ready(function () {
 
     var questionFour = new Question("Who is the proprietor of the Prancing Pony?", ["Bill Ferny", "Barliman Butterbur", "Forlong the Fat", "Tom Pickthorn"], 1, "assets/images/quest4.jpg", "Barliman Butterbur was a Man of Bree and the owner of The Prancing Pony in the town of Bree.");
 
-    var questionFive = new Question("The Lord of the Rings are written by what author?", ["J. K. Rowling", "J. R. R. Tolkien", "Stephen King", "Stephanie Meyer"], 1, "assets/images/quest4.jpg", "John Ronald Reuel Tolkien is best known as the author of The Hobbit and its sequel The Lord of the Rings.");
+    var questionFive = new Question("The Lord of the Rings are written by what author?", ["J. K. Rowling", "J. R. R. Tolkien", "Stephen King", "Stephanie Meyer"], 1, "assets/images/quest5.jpg", "John Ronald Reuel Tolkien is best known as the author of The Hobbit and its sequel The Lord of the Rings.");
 
-    var questionSix = new Question("The only way to destroy the Ring of Power is to throw it into the fires of: ", ["Mount Doom", "Mount Everest", "Mount Sauron", "Mordor"], 0, "assets/images/quest1.jpg", "Mount Doom, also known as Orodruin and Amon Amarth, was a volcano in Mordor where the One Ring was forged, and the only place it could be destroyed.");
+    var questionSix = new Question("The only way to destroy the Ring of Power is to throw it into the fires of: ", ["Mount Doom", "Mount Everest", "Mount Sauron", "Mordor"], 0, "assets/images/quest6.jpg", "Mount Doom, also known as Orodruin and Amon Amarth, was a volcano in Mordor where the One Ring was forged, and the only place it could be destroyed.");
 
-    var questionSeven = new Question("What is the name of the Ent who carries Pippin and Merry through Fangorn Forest?", ["Mirkwood", "Twiggy", "Greenbeard", "Treebeard"], 3, "assets/images/quest1.jpg", "Treebeard, also known as Fangorn, was the oldest of the Ents left in Middle-earth, an ancient tree-like being who was a shepherd of trees.");
+    var questionSeven = new Question("What is the name of the Ent who carries Pippin and Merry through Fangorn Forest?", ["Mirkwood", "Twiggy", "Greenbeard", "Treebeard"], 3, "assets/images/quest7.jpg", "Treebeard, also known as Fangorn, was the oldest of the Ents left in Middle-earth, an ancient tree-like being who was a shepherd of trees.");
 
-    var questionEight = new Question("While traveling through the mines of Moria, which member of the Fellowship of the Ring is killed by the Balrog?", ["Frodo", "Gandalf", "Boromir", "Sam"], 1, "assets/images/quest1.jpg", "Originally, in unrecorded ancient times, the Balrogs were fiery Maiar that were persuaded by Melkor's might and splendor to join his cause.");
+    var questionEight = new Question("While traveling through the mines of Moria, which member of the Fellowship of the Ring is killed by the Balrog?", ["Frodo", "Gandalf", "Boromir", "Sam"], 1, "assets/images/quest8.jpg", "Originally, in unrecorded ancient times, the Balrogs were fiery Maiar that were persuaded by Melkor's might and splendor to join his cause.");
 
-    var questionNine = new Question("What was Gollum’s hobbit name?", ["Smeagol", "Bilbo", "Gimli", "Legolas"], 0, "assets/images/quest1.jpg", "Gollum wasn't always Gollum. He was a hobbit of the River-folk.");
+    var questionNine = new Question("What was Gollum’s hobbit name?", ["Smeagol", "Bilbo", "Gimli", "Legolas"], 0, "assets/images/quest9.jpg", "Gollum wasn't always Gollum. He was a hobbit of the River-folk.");
 
-    var questionTen = new Question("Which hobbit stabs the Witch King?", ["Frodo", "Pippin", "Merry", "Samwise"], 2, "assets/images/quest1.jpg", "In the Battle of Pelennor Fields, which hobbit stabs the Witch King with a special enchanted blade?");
+    var questionTen = new Question("In the Battle of Pelennor Fields, which hobbit stabs the Witch King with a special enchanted blade?", ["Frodo", "Pippin", "Merry", "Samwise"], 2, "assets/images/quest10.jpg", "After the first defeat of Sauron in the War of the Last Alliance, the Witch-king fled to Angmar, a kingdom he ruled for over thousands of years until he returned to Mordor to lead Sauron's armies in the War of the Ring.");
 
 
 
