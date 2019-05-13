@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="assets/css/reset.css" type="text/css">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 
-    <title>Tolkien Trivia Game</title>
+    <title>Lord of the Rings Trivia</title>
 
 </head>
 
@@ -19,7 +19,7 @@
 
     <header class="page-header">
         <div class="container">
-            <h1><a href="#">Tolkien Trivia Game</a></h1>
+            <h1>Lord of the Rings Trivia</h1>
         </div>
         <div class="col-sm gold"></div>
     </header>
@@ -27,7 +27,7 @@
     <div class="container wrapper">
         <div class="row">
             <div class="col-sm intro">
-                <div class="changer">Are you a fan of J. R. R. Tolkien? Test your knowledge with this
+                <div class="changer">Are you a fan of J. R. R. Tolkien?<br>Test your knowledge with this
                     timed trivia game!
                     Good luck!</div>
             </div>
@@ -38,35 +38,37 @@
         <div class="row">
             <div class="col-sm">
                 <div class="progress"></div>
-                <!-- <div id="display"></div> -->
-                <div id="buttons">
-                    <button id="start">Start Playing</button>
-                    <!-- <button id="stop">Stop</button> -->
-                    <!-- <button id="reset">Reset</button> -->
-                    <!-- <button id="lap">Lap</button> -->
-                </div>
-                <div id="laps"></div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-sm">
                 <div id="question"></div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm">
-                <div id="answers"></div>
+
+        <div class="row main-row">
+            <div class="col-sm-8" id="answers"></div>
+            <div class="col-sm-4">
+                <div class="card"></div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-sm intro-row">
+                <img src="assets/images/intro.png">
+            </div>
+        </div>
+        
         <div class="row">
             <div class="col-sm">
-                <div id="next-button"></div>
+                <div id="next-button"><button id="start">Start Playing</button><button id="reset">Reset the Game!</button></div>
             </div>
         </div>
     </div>
 
     <footer class="page-footer">
-        <div class="container footer">
+        <div class="footer">
             &copy; Copyright
         </div>
     </footer>
