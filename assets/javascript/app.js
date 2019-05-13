@@ -16,7 +16,7 @@ $(document).ready(function () {
     var questionIdCounter = 0;
     var gameOver = false;
 
-    
+
     // QUESTION OBJECTS
     var myQuestions = []; // Empty array to hold trivia question objects    
     var currentQuestion = ""; // Variable to hold which question is active
@@ -31,13 +31,29 @@ $(document).ready(function () {
         this.questionFact = questionFact;
         myQuestions.push(this);
         questionIdCounter = questionIdCounter + 1;
+        console.log("9999", myQuestions.length);
     }
 
     // Question Objects //
-    var questionOne = new Question("Who was absent at the Council of Elrond?", ["Gimli", "Legolas", "Galadriel", "Gandalf"], 2, "assets/images/quest1.jpg", "blah");
-    var questionTwo = new Question("Who made the One Ring?", ["Bilbo", "Saruman", "Elrond", "Sauron"], 3, "assets/images/quest2.jpg", "blah 2");
-    var questionThree = new Question("By what name do the Elves call Gandalf?", ["The Grey Pilgrim", "Gandalf the Grey", "Incanus", "Mithrandir"], 3, "assets/images/quest3.jpg", "blah 3");
-    var questionFour = new Question("Who is the proprietor of the Prancing Pony?", ["Bill Ferny", "Barliman Butterbur", "Forlong the Fat", "Tom Pickthorn"], 1, "assets/images/quest4.jpg", "blah 4");
+    var questionOne = new Question("Who was absent at the Council of Elrond?", ["Gimli", "Legolas", "Galadriel", "Gandalf"], 2, "assets/images/quest1.jpg", "Galadriel was one of the greatest of the Eldar in Middle-earth, and surpassed nearly all others in beauty, knowledge, and power.");
+
+    var questionTwo = new Question("Who made the One Ring?", ["Bilbo", "Saruman", "Elrond", "Sauron"], 3, "assets/images/quest2.jpg", "Sauron was a fallen Maia, creator of the One Ring, and the most trusted lieutenant of his master Melkor.");
+
+    var questionThree = new Question("By what name do the Elves call Gandalf?", ["The Grey Pilgrim", "Gandalf the Grey", "Incanus", "Mithrandir"], 3, "assets/images/quest3.jpg", "Gandalf wore a tall pointed grey hat, a long grey cloak, and a silver scarf. He was known to the Elves as Mithrandir.");
+
+    var questionFour = new Question("Who is the proprietor of the Prancing Pony?", ["Bill Ferny", "Barliman Butterbur", "Forlong the Fat", "Tom Pickthorn"], 1, "assets/images/quest4.jpg", "Barliman Butterbur was a Man of Bree and the owner of The Prancing Pony in the town of Bree.");
+
+    var questionFive = new Question("The Lord of the Rings are written by what author?", ["J. K. Rowling", "J. R. R. Tolkien", "Stephen King", "Stephanie Meyer"], 1, "assets/images/quest4.jpg", "John Ronald Reuel Tolkien is best known as the author of The Hobbit and its sequel The Lord of the Rings.");
+
+    var questionSix = new Question("The only way to destroy the Ring of Power is to throw it into the fires of: ", ["Mount Doom", "Mount Everest", "Mount Sauron", "Mordor"], 0, "assets/images/quest1.jpg", "Mount Doom, also known as Orodruin and Amon Amarth, was a volcano in Mordor where the One Ring was forged, and the only place it could be destroyed.");
+
+    var questionSeven = new Question("What is the name of the Ent who carries Pippin and Merry through Fangorn Forest?", ["Mirkwood", "Twiggy", "Greenbeard", "Treebeard"], 3, "assets/images/quest1.jpg", "Treebeard, also known as Fangorn, was the oldest of the Ents left in Middle-earth, an ancient tree-like being who was a shepherd of trees.");
+
+    var questionEight = new Question("While traveling through the mines of Moria, which member of the Fellowship of the Ring is killed by the Balrog?", ["Frodo", "Gandalf", "Boromir", "Sam"], 1, "assets/images/quest1.jpg", "Originally, in unrecorded ancient times, the Balrogs were fiery Maiar that were persuaded by Melkor's might and splendor to join his cause.");
+
+    var questionNine = new Question("What was Gollum’s hobbit name?", ["Smeagol", "Bilbo", "Gimli", "Legolas"], 0, "assets/images/quest1.jpg", "Gollum wasn't always Gollum. He was a hobbit of the River-folk.");
+
+    var questionTen = new Question("Which hobbit stabs the Witch King?", ["Frodo", "Pippin", "Merry", "Samwise"], 2, "assets/images/quest1.jpg", "In the Battle of Pelennor Fields, which hobbit stabs the Witch King with a special enchanted blade?");
 
 
 
@@ -53,7 +69,7 @@ $(document).ready(function () {
         $('#question').show();
         // $("#next-button").empty();
         // $('.progress').empty();
-        
+
         if (questionIdCounter == 0) {
             $('#timer').empty();
         }
@@ -109,7 +125,7 @@ $(document).ready(function () {
         recordLap();
         nextQuestion();
         $('.progress-bar').empty();
-        
+
         // Adds a class to the button that was clicked
         $(this).addClass('selectedAnswer');
 
@@ -211,11 +227,11 @@ $(document).ready(function () {
 
 
     // Next Question
-    function nextQuestion() {        
+    function nextQuestion() {
         // $('.progress-bar').removeClass('progress');
         var nextButton = $("<button>");
         nextButton.addClass("next");
-        if (questionIdCounter < 4) {
+        if (questionIdCounter < 10) {
             nextButton.text("Next Question");
         } else {
             nextButton.text("Score Quiz");
@@ -258,7 +274,7 @@ $(document).ready(function () {
         $('.progress').append(progressDiv);
     }
 
-    
+
     // Start button
     $("#start").on("click", start);
     function start() {
